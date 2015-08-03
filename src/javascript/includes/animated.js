@@ -40,8 +40,20 @@ var home = module.exports = {
     //Create a container object called the `stage`
     var stage = new PIXI.Container();
 
-    //Tell the `renderer` to `render` the `stage`
-    renderer.render(stage);
+    PIXI.loader
+      .add("assets/images/antler.png")
+      .load(setup);
+
+    function setup() {
+
+      var antler = new PIXI.Sprite.fromImage("assets/images/antler.png");
+      stage.addChild(antler);
+      console.log(antler);
+      //Tell the `renderer` to `render` the `stage`
+      renderer.render(stage);
+    }
+
+
 
     window.addEventListener("resize", function(e, here) {
       renderer.resize(window.innerWidth, window.innerHeight);
