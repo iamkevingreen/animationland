@@ -1,14 +1,14 @@
 var PIXI = require('../vendor/pixi.js');
 
+
 'use strict';
 
 var home = module.exports = {
   dom: {
-    body: document.querySelector('body'),
     content: document.querySelector('.content'),
   },
   init: function() {
-    if (home.dom.body) {
+    if (home.dom.content) {
       this.render();
     }
   },
@@ -17,8 +17,22 @@ var home = module.exports = {
   },
   pixiStage: function() {
     var content = home.dom.content;
+
+    var rendererOptions = {
+        antialiasing:false,
+        transparent:false,
+        resolution:1
+    }
+
     //Create the renderer
-    var renderer = PIXI.autoDetectRenderer(256, 256);
+    var renderer = PIXI.autoDetectRenderer(
+      256, 256, rendererOptions
+    );
+
+    renderer.view.style.position = "absolute"
+    renderer.view.style.display = "block";
+    renderer.autoResize = true;
+    renderer.resize(window.innerWidth, window.innerHeight);
 
     //Add the canvas to the HTML document
     content.appendChild(renderer.view);
@@ -28,5 +42,11 @@ var home = module.exports = {
 
     //Tell the `renderer` to `render` the `stage`
     renderer.render(stage);
+
+    window.addEventListener("resize", function(e, here) {
+      renderer.resize(window.innerWidth, window.innerHeight);
+    });
+
   }
+
 };
