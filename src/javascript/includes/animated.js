@@ -18,6 +18,12 @@ var home = module.exports = {
   pixiStage: function() {
     var content = home.dom.content;
 
+    //Aliases
+    var Container = PIXI.Container,
+        autoDetectRenderer = PIXI.autoDetectRenderer,
+        loader = PIXI.loader,
+        Sprite = PIXI.Sprite;
+
     var rendererOptions = {
         antialiasing:false,
         transparent:false,
@@ -25,7 +31,7 @@ var home = module.exports = {
     }
 
     //Create the renderer
-    var renderer = PIXI.autoDetectRenderer(
+    var renderer = autoDetectRenderer(
       256, 256, rendererOptions
     );
 
@@ -38,15 +44,29 @@ var home = module.exports = {
     content.appendChild(renderer.view);
 
     //Create a container object called the `stage`
-    var stage = new PIXI.Container();
+    var stage = new Container();
 
-    PIXI.loader
-      .add("assets/images/antler.png")
+    loader
+      .add("antlerImage", "assets/images/antler.png", {}, imageAssetsLoaded)
+      .on("progress", loadProgressHandler)
       .load(setup);
+
+    function imageAssetsLoaded() {
+      console.log('All images are loaded');
+    }
+
+    function loadProgressHandler(loader, resource) {
+      console.log('loading: ' +resource.url);
+      console.log('loading: ' +loader.progress +'%');
+    }
 
     function setup() {
 
-      var antler = new PIXI.Sprite.fromImage("assets/images/antler.png");
+      var antler = new Sprite(PIXI.loader.resources.antlerImage.texture);
+
+      antler.x = 96;
+      antler.y = 96;
+
       stage.addChild(antler);
       console.log(antler);
       //Tell the `renderer` to `render` the `stage`
