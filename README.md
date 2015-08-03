@@ -1,6 +1,7 @@
-Virtru
+Animation Land
 ==================
 
+~~~ Learning how to use [PIXI.js](http://pixijs.github.io/)
 
 Includes the following:
 
