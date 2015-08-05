@@ -1,6 +1,21 @@
-.content {
-  canvas {
-    top: 0;
-    left: 0;
-  }
+canvas {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
+body {
+  background: rgb(0, 0, 0);
+}
+
+h1 {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: rgba(42, 35, 45, .5);
+  font-family: 'impact';
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
 }
